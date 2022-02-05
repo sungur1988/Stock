@@ -11,11 +11,11 @@ namespace DataAccess.Concrete.EntityFrameworkCore.Repositories
 {
     public class UserRepository : BaseRepository<User, AppDbContext>, IUserRepository
     {
-        public List<OperationClaimDto> GetClaims(User user)
+        public List<OperationClaim> GetClaims(User user)
         {
             using (var context = new AppDbContext())
             {
-                return context.OperationClaims.Where(x => x.UserId == user.Id).Select(y => new OperationClaimDto { Id = y.Id, Name = y.Name }).ToList();
+                return context.OperationClaims.Where(x => x.UserId == user.Id).Select(y => new OperationClaim { Id=y.Id,Name=y.Name }).ToList();
             }
         }
     }
