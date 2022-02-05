@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.EntityLayer.Concrete.AuthorizationEntities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -21,5 +22,11 @@ namespace Business.Constants
         public static string DifferentUserAddedCategory = "Bu kategori başka bir kullanıcı tarafından eklenmiştir.Silme yetkiniz yoktur.";
         public static string ProductExistInThisCategory = "Bu kategoriye ait ürün bulunduğundan bu kategori silinemez.";
         public static string ProductMovementExistWithThisProduct = "Bu ürüne ait stok hareketleri olduğu için bu ürün silinemez.";
+        public static string UserAlreadyExist = "Bu email adresine ait bir kullanıcı bulunmaktadır";
+        public static string UserNotFound = "Bu email adresine sahip bir kullanıcı bulunamadı";
+        public static string PasswordError ="Şifreniz yanlış girilmiştir.";
+        public static string SuccessfulLogin = "Başarılı bir şekilde giriş yapıldı.";
+        public static string UserRegistered = "Kullanıcı başarılı bir şekilde kaydedildi.";
+        public static string AccessTokenCreated = "Access token başarıyla oluşturuldu.";
     }
 }
