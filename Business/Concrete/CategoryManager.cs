@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -20,6 +22,7 @@ namespace Business.Concrete
             _categoryRepository = categoryRepository;
         }
 
+        [ValidationAspect(typeof(CategoryValidator))]
         public IResult Add(Category category)
         {
             _categoryRepository.Add(category);
@@ -30,7 +33,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<IEnumerable<Category>>(_categoryRepository.GetAll(x => x.CreatedUserId == userId), Messages.CategoryListed);
         }
-
+        [ValidationAspect(typeof(CategoryValidator))]
         public IResult Update(Category category)
         {
             return new SuccessResult(Messages.CategoryUpdated);
