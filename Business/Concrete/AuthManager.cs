@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.EntityLayer.Concrete.AuthorizationEntities;
 using Core.Utilities.Results;
@@ -41,7 +42,7 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
-
+        [SecuredOperationAspect("admin")]
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;
@@ -66,6 +67,22 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.UserAlreadyExist);
             }
+            return new SuccessResult();
+        }
+        [SecuredOperationAspect("admin")]
+        public IDataResult<IEnumerable<User>> GetAllUser()
+        {
+            return new SuccessDataResult<IEnumerable<User>>(_userService.GetUser(), Messages.UsersListed);
+        }
+        [SecuredOperationAspect("admin")]
+        public IResult Delete(string email)
+        {
+            var userToDelete = _userService.GetByMail(email);
+            if (userToDelete==null)
+            {
+                return new ErrorResult(Messages.UserNotFound);
+            }
+            _userService.Delete(userToDelete);
             return new SuccessResult();
         }
     }
