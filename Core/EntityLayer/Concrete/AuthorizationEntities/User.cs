@@ -14,6 +14,5 @@ namespace Core.EntityLayer.Concrete.AuthorizationEntities
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
         public bool Status { get; set; }
-        public ICollection<OperationClaim> OperationClaims { get; set; }
     }
 }

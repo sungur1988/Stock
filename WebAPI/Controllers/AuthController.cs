@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Extensions;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +24,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var data = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
+            var data = HttpContext.User.FindClaimRoles();
             return Ok(data);
         }
         [HttpPost("login")]

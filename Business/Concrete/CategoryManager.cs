@@ -18,9 +18,10 @@ namespace Business.Concrete
     {
         private ICategoryRepository _categoryRepository;
         private IProductService _productService;
-        public CategoryManager(ICategoryRepository categoryRepository)
+        public CategoryManager(ICategoryRepository categoryRepository,IProductService productService)
         {
             _categoryRepository = categoryRepository;
+            _productService = productService;
         }
 
         [ValidationAspect(typeof(CategoryValidator))]
