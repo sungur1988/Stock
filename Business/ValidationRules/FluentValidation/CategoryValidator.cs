@@ -10,7 +10,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CategoryValidator()
         {
-            RuleFor(c => c.CategoryName).NotNull().MaximumLength(50);
+            RuleFor(c => c.CategoryName).NotNull();
+            RuleFor(c => c.CategoryName).MaximumLength(50);
         }
     }
 }
