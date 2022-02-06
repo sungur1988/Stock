@@ -3,6 +3,7 @@ using Core.EntityLayer.Concrete.AuthorizationEntities;
 using DataAccess.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -27,6 +28,16 @@ namespace Business.Concrete
         public List<OperationClaim> GetClaims(User user)
         {
             return _userRepository.GetClaims(user);
+        }
+
+        public List<User> GetUser()
+        {
+            return _userRepository.GetAll().ToList();
+        }
+
+        public void Delete(User user)
+        {
+            _userRepository.Delete(user);
         }
     }
 }
