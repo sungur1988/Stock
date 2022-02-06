@@ -59,7 +59,8 @@ namespace WebAPI
                     };
                 });
             services.AddDependecyResolvers(new ICoreModule[]{
-                new CacheModule()
+                new CacheModule(),
+                new HttpContextModule()
             });
         }
 
