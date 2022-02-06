@@ -8,6 +8,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using Core.Utilities.Business;
+using Core.Aspects.Autofac;
+using Business.ValidationRules.FluentValidation;
 
 namespace Business.Concrete
 {
@@ -20,6 +22,7 @@ namespace Business.Concrete
             _productRepository = productRepository;
             _productMovementService = productMovementService;
         }
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
             _productRepository.Add(product);
@@ -42,7 +45,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<IEnumerable<Product>>(_productRepository.GetAll(x => x.CategoryId == categoryId), Messages.ProductListed);
         }
-
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Update(Product product)
         {
             _productRepository.Update(product);
