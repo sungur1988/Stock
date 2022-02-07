@@ -1,4 +1,5 @@
 ﻿using Core.EntityLayer.Concrete.AuthorizationEntities;
+using Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,5 +30,6 @@ namespace Business.Constants
         public static string UserRegistered = "Kullanıcı başarılı bir şekilde kaydedildi.";
         public static string AccessTokenCreated = "Access token başarıyla oluşturuldu.";
         public static string UsersListed = "Tüm kullanıcılar listelendi";
+        public static string CategoryNotFound = "Bu Id'ye ait kullanıcı bulunamamıştır. ";
     }
 }

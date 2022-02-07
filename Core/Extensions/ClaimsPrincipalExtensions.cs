@@ -16,5 +16,9 @@ namespace Core.Extensions
         {
             return claimsPrincipal.FindAllClaims(ClaimTypes.Role);
         }
+        public static string FindNameIdentifierClaim(this ClaimsPrincipal claimsPrincipal)
+        {
+            return claimsPrincipal.FindAllClaims(ClaimTypes.NameIdentifier)[0];
+        }
     }
 }

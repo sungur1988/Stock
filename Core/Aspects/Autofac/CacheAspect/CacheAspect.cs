@@ -21,15 +21,17 @@ namespace Core.Aspects.Autofac.CacheAspect
         }
         protected override void OnBefore(IInvocation invocation)
         {
-            var methodName = $"{invocation.Method.ReflectedType.FullName}.{invocation.Method.Name}";
+            var methodName = string.Format($"{invocation.Method.ReflectedType.FullName}.{invocation.Method.Name}");
             var arguments = invocation.Arguments.ToList();
-            var key = $"{methodName}({string.Join(',', arguments.Select(x => x?.ToString() ?? "<Null>"))})";
+            var key = $"{methodName}({string.Join(",", arguments.Select(x => x?.ToString() ?? "<Null>"))})";
             if (_cacheManager.IsAdd(key))
             {
                 invocation.ReturnValue = _cacheManager.Get(key);
                 return;
             }
             invocation.Proceed();
+            _cacheManager.Add(key, invocation.ReturnValue, _duration);
+
         }
     }
 }

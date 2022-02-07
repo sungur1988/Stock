@@ -51,7 +51,15 @@ namespace Business.Concrete
             _categoryRepository.Delete(category);
             return new SuccessResult(Messages.CategoryDeleted);
         }
-
+        public IDataResult<Category> GetCategoryById(int categoryId)
+        {
+            var category=_categoryRepository.Get(x => x.Id == categoryId);
+            if (category==null)
+            {
+                return new ErrorDataResult<Category>(Messages.CategoryNotFound);
+            }
+            return new SuccessDataResult<Category>(category);
+        }
         private IResult CheckAddedUser(Category category,int userId)
         {
 

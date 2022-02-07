@@ -8,6 +8,5 @@ namespace Entities.Entities
     public class Category : AuditableEntity
     {
         public string CategoryName { get; set; }
-        public ICollection<Product> Products { get; set; }
     }
 }

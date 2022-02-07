@@ -31,7 +31,8 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
 
         public bool IsAdd(string key)
         {
-            return _cache.TryGetValue(key, out _);
+            var data = _cache.TryGetValue(key, out _);
+            return data;
         }
 
         public void Remove(string key)
