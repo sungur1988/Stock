@@ -43,7 +43,7 @@ namespace Business.Concrete
 
         public IResult Delete(Category category,int userId)
         {
-            var result = RuleEngine.Run(CheckAddedUser(category, userId), CheckProductExistInThisCategory(category.Id));
+            var result = RuleEngine.Run(CheckAddedUser(category, userId), CheckProductExistInThisCategory(userId,category.Id));
             if (result!=null)
             {
                 return result;
@@ -69,9 +69,9 @@ namespace Business.Concrete
             }
             return new ErrorResult(Messages.DifferentUserAddedCategory);
         }
-        private IResult CheckProductExistInThisCategory(int categoryId)
+        private IResult CheckProductExistInThisCategory(int userId,int categoryId)
         {
-            var productsExist = _productService.GetListByCategoryId(categoryId).Data.Any();
+            var productsExist = _productService.GetListByCategoryId(userId,categoryId).Data.Any();
             if (productsExist)
             {
                 return new ErrorResult(Messages.ProductExistInThisCategory);

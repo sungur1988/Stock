@@ -18,7 +18,7 @@ namespace Business.Concrete
     {
         private IProductRepository _productRepository;
         private IProductMovementService _productMovementService;
-        public ProductManager(IProductRepository productRepository,IProductMovementService productMovementService)
+        public ProductManager(IProductRepository productRepository, IProductMovementService productMovementService)
         {
             _productRepository = productRepository;
             _productMovementService = productMovementService;
@@ -27,23 +27,23 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             _productRepository.Add(product);
-            return new SuccessResult( Messages.ProductAdded);
+            return new SuccessResult(Messages.ProductAdded);
 
         }
 
-        public IResult Delete(Product product,int userId)
+        public IResult Delete(Product product, int userId)
         {
-            var result = RuleEngine.Run(CheckAddedUser(product,userId), CheckProductMovementWithThisProduct(userId, product.Id));
-            if (result!=null)
+            var result = RuleEngine.Run(CheckAddedUser(product, userId), CheckProductMovementWithThisProduct(userId, product.Id));
+            if (result != null)
             {
                 return result;
             }
             _productRepository.Delete(product);
             return new SuccessResult(Messages.ProductDeleted);
         }
-        public IDataResult<IEnumerable<Product>> GetListByCategoryId(int categoryId)
+        public IDataResult<IEnumerable<Product>> GetListByCategoryId(int userId, int categoryId)
         {
-            return new SuccessDataResult<IEnumerable<Product>>(_productRepository.GetAll(x => x.CategoryId == categoryId), Messages.ProductListed);
+            return new SuccessDataResult<IEnumerable<Product>>(_productRepository.GetAll(x => x.CategoryId == categoryId&&x.Id==userId), Messages.ProductListed);
         }
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Update(Product product)
@@ -51,9 +51,9 @@ namespace Business.Concrete
             _productRepository.Update(product);
             return new SuccessResult(Messages.ProductUpdated);
         }
-        public  IDataResult<IEnumerable<Product>> GetList()
+        public IDataResult<IEnumerable<Product>> GetList(int userId)
         {
-            return new SuccessDataResult<IEnumerable<Product>>(_productRepository.GetAll(), Messages.ProductListed);
+            return new SuccessDataResult<IEnumerable<Product>>(_productRepository.GetAll(x => x.Id == userId), Messages.ProductListed);
         }
         private IResult CheckAddedUser(Product product, int userId)
         {
@@ -61,12 +61,12 @@ namespace Business.Concrete
             if (!(product.CreatedUserId == userId))
             {
                 return new ErrorResult(Messages.DifferentUserAddedCategory);
-                
+
             }
             return new SuccessResult();
 
         }
-        private IResult CheckProductMovementWithThisProduct(int userId,int productId)
+        private IResult CheckProductMovementWithThisProduct(int userId, int productId)
         {
             var result = _productMovementService.GetListByProductId(userId, productId).Data.Any();
             if (result)
@@ -74,6 +74,16 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.ProductMovementExistWithThisProduct);
             }
             return new SuccessResult();
+        }
+
+        public IDataResult<Product> GetProductById(int productId)
+        {
+            var product = _productRepository.Get(x => x.Id == productId);
+            if (product == null)
+            {
+                return new ErrorDataResult<Product>(Messages.ProductNotFound);
+            }
+            return new SuccessDataResult<Product>(product);
         }
     }
 }

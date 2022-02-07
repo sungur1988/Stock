@@ -30,6 +30,7 @@ namespace Business.Constants
         public static string UserRegistered = "Kullanıcı başarılı bir şekilde kaydedildi.";
         public static string AccessTokenCreated = "Access token başarıyla oluşturuldu.";
         public static string UsersListed = "Tüm kullanıcılar listelendi";
-        public static string CategoryNotFound = "Bu Id'ye ait kullanıcı bulunamamıştır. ";
+        public static string CategoryNotFound = "Bu Id'ye ait kategori bulunamamıştır. ";
+        public static string ProductNotFound = "Bu Id'ye ait ürün bulunamamıştır. ";
     }
 }

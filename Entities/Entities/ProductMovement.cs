@@ -8,6 +8,7 @@ namespace Entities.Entities
     public class ProductMovement : AuditableEntity
     {
         private int _amount;
+        public int Id { get; set; }
         public int ProductId { get; set; }
         public string MovementTypeId { get; set; }
         public int Amount { get {
@@ -25,7 +26,6 @@ namespace Entities.Entities
                 _amount = value;
             } }
         public string Description { get; set; }
-        public virtual Product Product { get; set; }
-        public virtual MovementType MovementType { get; set; }
+
     }
 }

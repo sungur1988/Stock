@@ -14,6 +14,8 @@ namespace WebAPI.Mapping
         {
             CreateMap<CategoryAddDto, Category>();
             CreateMap<CategoryUpdateDto, Category>();
+            CreateMap<ProductAddDto, Product>();
+            CreateMap<ProductUpdateDto, Product>();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
 
             return Ok(result.Message);
         }
-        [HttpPost]
+        [HttpPut]
         public IActionResult UpdateCategory(CategoryUpdateDto categoryUpdateDto)
         {
             var check = _categoryService.GetCategoryById(categoryUpdateDto.Id);
