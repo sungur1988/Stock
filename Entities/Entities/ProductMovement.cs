@@ -8,10 +8,11 @@ namespace Entities.Entities
     public class ProductMovement : AuditableEntity
     {
         private int _amount;
-        public int Id { get; set; }
+
         public int ProductId { get; set; }
         public string MovementTypeId { get; set; }
-        public int Amount { get {
+        public int Amount { 
+            get {
                 if (MovementTypeId=="-")
                 {
                     return (-1) * _amount;
@@ -21,10 +22,19 @@ namespace Entities.Entities
                     return _amount;
                 }
             
-            } set {
+            } 
+            set {
 
-                _amount = value;
-            } }
+                if (MovementTypeId=="-")
+                {
+                    _amount = (-1) * value;
+                }
+                else
+                {
+                    _amount = value;
+                }
+            } 
+        }
         public string Description { get; set; }
 
     }

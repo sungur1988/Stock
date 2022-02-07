@@ -13,6 +13,6 @@ namespace Business.Abstract
         IDataResult<IEnumerable<ProductMovement>> GetList(int userId);
         IDataResult<IEnumerable<StockTotalDto>> GetStockTotals();
         IDataResult<IEnumerable<ProductMovement>> GetListByProductId(int userId,int productId);
-
+        IDataResult<ProductMovement> GetProductMovementById(int productMovementId);
     }
 }

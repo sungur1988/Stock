@@ -68,7 +68,7 @@ namespace Business.Concrete
         }
         private IResult CheckProductMovementWithThisProduct(int userId, int productId)
         {
-            var result = _productMovementService.GetListByProductId(userId, productId).Data.Any();
+            var result = _productMovementService.GetListByProductId(userId, productId).Success;
             if (result)
             {
                 return new ErrorResult(Messages.ProductMovementExistWithThisProduct);

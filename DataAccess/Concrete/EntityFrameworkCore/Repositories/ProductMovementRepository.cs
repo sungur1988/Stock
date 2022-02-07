@@ -15,14 +15,14 @@ namespace DataAccess.Concrete.EntityFrameworkCore.Repositories
         {
             using (var context = new AppDbContext())
             {
-                return context.ProductMovements
-                    .GroupBy(x => x.ProductId)
-                    .Select(y => new StockTotalDto
-                    {
-                        ProductId = y.First().ProductId,
-                        ProductName = y.First().Product.ProductName,
-                        Stock = y.Sum(z => z.Amount)
-                    });
+                var data = from pm in context.ProductMovements
+                           join p in context.Products
+                           on pm.ProductId equals p.Id
+                           select new { ProductId = p.Id, ProductName = p.ProductName, Stock = pm.Amount };
+                var result = data.GroupBy(a => a.ProductName)
+                     .Select(a => new StockTotalDto { ProductName = a.Key, Stock = a.Sum(b => b.Stock) });
+                return result.ToList();
+
             }
         }
     }

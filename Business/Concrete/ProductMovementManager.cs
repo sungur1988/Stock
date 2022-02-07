@@ -44,5 +44,15 @@ namespace Business.Concrete
                 .OrderByDescending(y => y.CreatedDate)
                 , Messages.ProductMovementListed);
         }
+
+        public IDataResult<ProductMovement> GetProductMovementById(int productMovementId)
+        {
+            var productMovement = _productMovementRepository.Get(x => x.Id == productMovementId);
+            if (productMovement==null)
+            {
+                return new ErrorDataResult<ProductMovement>(Messages.ProductMovementNotFound);
+            }
+            return new SuccessDataResult<ProductMovement>();
+        }
     }
 }

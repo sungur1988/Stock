@@ -32,5 +32,6 @@ namespace Business.Constants
         public static string UsersListed = "Tüm kullanıcılar listelendi";
         public static string CategoryNotFound = "Bu Id'ye ait kategori bulunamamıştır. ";
         public static string ProductNotFound = "Bu Id'ye ait ürün bulunamamıştır. ";
+        public static string ProductMovementNotFound = "Bu Id'ye ait ürün hareketi bulunamamıştır.";
     }
 }
